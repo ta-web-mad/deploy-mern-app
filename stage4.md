@@ -32,8 +32,9 @@ Tu aplicación de React debe ser comprimida a su versión de producción e inclu
 
 Para que tu servidor pueda enviar archivos al front, es necesario incluir el siguiente middleware al final de `app.js`, lo que permitirá enviar siempre el `index.html` que incluye el build de React al cliente:
 
+       app.use(express.static(path.join(__dirname, "..", "public")));
        app.use((req, res) => res.sendFile(__dirname + "/public/index.html"));
-  
+       
 Asimismo, la gestión de errores 500 ya está siendo asumida por los propios endpoints del servidor, por lo que el archivo `error-handlers.config.js` de tu directorio `/config` ya no es necesario. Elimina tanto el archivo como su requerimiento en `app.js`.
 
 Respecto a los errores 404, React los asumirá. Infórmate sobre [cómo gestionar errores 404 desde React Router](https://naveenda.medium.com/creating-a-custom-404-notfound-page-with-react-routers-56af9ad67807).
