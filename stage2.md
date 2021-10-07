@@ -69,5 +69,6 @@ Despídete de tu base de datos local porque en adelante trabajarás contra la ba
     mongoose
        .connect(process.env.DB_REMOTE, ...
     ````
+3. Modifica el string de conexión en session.config para que utilice process.env.DB_REMOTE
 
-3. Reinicia el servidor y comprueba cómo sigue funcionando con normalidad, ahora contra MongoDB Atlas.
+4. Reinicia el servidor y comprueba cómo sigue funcionando con normalidad, ahora contra MongoDB Atlas.
