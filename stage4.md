@@ -5,6 +5,7 @@ Tu aplicación de Express debe retornar un archivo `index.html` desde su directo
 
 ## Variables de entorno en cliente
 
+### ALTERNATIVA 1
 El cliente debe tomar, para todos los servicios, el base URL `http://localhost:5000/api` durante el trabajo en local, mientras que la versión de prducción debe apuntar a `https://donuts-planet.herokuapp.com/api`.
 
 Para esto usaremos [las variables de entorno de Create React App](https://create-react-app.dev/docs/adding-custom-environment-variables/). Modifica los scripts de React en el `package.json`, incluyendo la misma variable para que apunte a una u otra URL base según el entorno:
@@ -19,6 +20,37 @@ Para esto usaremos [las variables de entorno de Create React App](https://create
 ````
 Asimismo, recuerda modificar todos los servicios para que tomen `process.env.REACT_APP_BASE_URL` como BaseURL.
 
+### ALTERNATIVA 2. Que hacer si las variables de entorno no funcionan en windows.
+Instalar la dependencia [*crossenv*](https://www.npmjs.com/package/crossenv)
+
+Modificar los scripts del package.json para incluir el comando cross-env.
+
+
+````json
+ "scripts": {
+    "start": "cross-env REACT_APP_BASE_URL=http://localhost:5000/api react-scripts start",
+    "build": "cross-env REACT_APP_BASE_URL=https://donuts-planet.herokuapp.com/api react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+````
+## ALTERNATIVA 3. Muchas variables de entorno o fallo de todo lo anterior.
+
+Instalar la dependencia [*dotenv-cli*](https://www.npmjs.com/package/dotenv-cli)
+
+En la raiz del proyecto:
+ - Crear un .env.local con las variables de entorno locales como REACT_APP_BASE_URL=http://localhost:5000/api
+ - Crear un .env.prod con las variables de entorno de producción como REACT_APP_BASE_URL=https://donuts-planet.herokuapp.com/api
+
+En el packaje.son modifica los scripts de React incluyendo el comando dotenv para cargar el archivo correspondiente.
+````json
+ "scripts": {
+    "start": "dotenv -e .env.local react-scripts start",
+    "build": "dotenv -e .env.prod react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+````
 
 ## Build de producción 
 
