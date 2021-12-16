@@ -62,14 +62,14 @@ Tu aplicación de React debe ser comprimida a su versión de producción e inclu
 
 ## Configuración de servidor
 
-Para que tu servidor pueda enviar archivos al front, es necesario incluir el siguiente middleware al final de `app.js`, lo que permitirá enviar siempre el `index.html` que incluye el build de React al cliente, es importante que carguen antes que las rutas:
+Para que tu servidor pueda enviar archivos al front, es necesario incluir tanto un par de middlewares en `app.js`, lo que permitirá enviar siempre el `index.html` que incluye el build de React al cliente. Es importante que el middleware de configuración se haga antes que las rutas, mientras que el envío al index.html va después de ellas:
 
        const path = require('path')
-       app.use(express.static(path.join(__dirname, "public")))
+       app.use(express.static(path.join(__dirname, "public"))) // MIDDLEWARE DE CONFIGURACIÓN
        
-       require("./routes")(app) //RUTAS
+       require("./routes")(app) // AQUÍ VUESTRA CONEXIÓN A LAS RUTAS, YA DEBERÍAS TENERLA
        
-       app.use((req, res) => res.sendFile(__dirname + "/public/index.html"));
+       app.use((req, res) => res.sendFile(__dirname + "/public/index.html")); // MIDDLEWARE DE ENVÍO AL HTML
   
 Asimismo, la gestión de errores 500 ya está siendo asumida por los propios endpoints del servidor, por lo que el archivo `error-handlers.config.js` de tu directorio `/config` ya no es necesario. Elimina tanto el archivo como su requerimiento en `app.js`.
 
