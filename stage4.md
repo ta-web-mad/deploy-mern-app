@@ -21,7 +21,7 @@ Para esto usaremos [las variables de entorno de Create React App](https://create
 Asimismo, recuerda modificar todos los servicios para que tomen `process.env.REACT_APP_BASE_URL` como BaseURL.
 
 ### ALTERNATIVA 2. Que hacer si las variables de entorno no funcionan en windows.
-Instalar la dependencia [*crossenv*](https://www.npmjs.com/package/crossenv)
+Instalar la dependencia [*cross-env*](https://www.npmjs.com/package/cross-env)
 
 Modificar los scripts del package.json para incluir el comando cross-env.
 
@@ -62,9 +62,10 @@ Tu aplicación de React debe ser comprimida a su versión de producción e inclu
 
 ## Configuración de servidor
 
-Para que tu servidor pueda enviar archivos al front, es necesario incluir el siguiente middleware al final de `app.js`, lo que permitirá enviar siempre el `index.html` que incluye el build de React al cliente:
+Para que tu servidor pueda enviar archivos al front, es necesario incluir el siguiente middleware al final de `app.js`, lo que permitirá enviar siempre el `index.html` que incluye el build de React al cliente, es importante que carguen antes que las rutas:
 
        app.use(express.static(path.join(__dirname, "public")))
+       require("./routes")(app) //RUTAS
        app.use((req, res) => res.sendFile(__dirname + "/public/index.html"));
   
 Asimismo, la gestión de errores 500 ya está siendo asumida por los propios endpoints del servidor, por lo que el archivo `error-handlers.config.js` de tu directorio `/config` ya no es necesario. Elimina tanto el archivo como su requerimiento en `app.js`.
