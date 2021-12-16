@@ -61,14 +61,6 @@ Despídete de tu base de datos local porque en adelante trabajarás contra la ba
 
 1. Accede al archivo `.env` de tu aplicación de Express, y crea la variable de entorno `DB_REMOTE` con el string de conexión de MongoDB Atlas como valor. 
 
-    `DB_REMOTE=mongodb+srv://your_user:your_pwd.ooyyy.mongodb.net/school`
+    `MONGODB_URI=mongodb+srv://your_user:your_pwd.ooyyy.mongodb.net/school`
 
-2. Modifica el método `connect()` de tu aplicación, tomando como valor de conexión esta variable de entorno:
-
-    ````javascript
-    mongoose
-       .connect(process.env.DB_REMOTE, ...
-    ````
-3. Modifica el string de conexión en session.config para que utilice process.env.DB_REMOTE
-
-4. Reinicia el servidor y comprueba cómo sigue funcionando con normalidad, ahora contra MongoDB Atlas.
+2. Reinicia el servidor y comprueba cómo sigue funcionando con normalidad, ahora contra MongoDB Atlas.
